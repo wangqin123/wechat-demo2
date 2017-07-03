@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.2.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+           http://www.springframework.org/schema/jdbc 
+           http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+           http://www.springframework.org/schema/task  
+           http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+
+	<!-- 注解配置 -->
+	<context:annotation-config />
+
+	<!-- 自动扫描的包名 -->
+	<context:component-scan base-package="com.wq.wechat">
+	</context:component-scan>
+	<bean class="com.wq.wechat.util.WechatMessage">
+		<property name="map">
+			<map>
+				<entry key="contactUsEvent">
+					<value>尊敬的客户：
+						如果您对我们的业务或服务存在相关疑问或建议，欢迎致电，或通过微信公众号“深圳柠檬金服”直接与我们的客服对话。
+						客服热线 > 4006-028-011 每天在线时间：09:00-18:00
+						微信公众号 > 深圳柠檬金服 每天在线时间：09:00-18:00
+						美美哒软萌妹子等你来撩……
+					</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+
+</beans>
