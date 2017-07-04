@@ -14,6 +14,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.thoughtworks.xstream.XStream;
 import com.wq.wechat.res.BaseMessage;
 import com.wq.wechat.res.MusicMessage;
 import com.wq.wechat.res.NewsMessage;
@@ -122,6 +123,14 @@ public class MessageUtil {
     public static String newsMessageToXml(NewsMessage newsMessage) {
     	return convertToXml(newsMessage, "UTF-8");
     }
+    
+    public static String imgMessageToXml(NewsMessage newsMessage) {
+    	
+    	XStream x = new XStream();
+    	x.alias("xml", newsMessage.getClass());
+    	return x.toXML(newsMessage);
+    }
+    
     
     private static String convertToXml(Object obj, String encoding) {  
         String result = null;  

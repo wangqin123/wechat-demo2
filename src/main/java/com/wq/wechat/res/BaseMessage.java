@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.wq.wechat.bean.Image;
 import com.wq.wechat.util.CDataAdapter;
 
 
@@ -38,13 +39,14 @@ public class BaseMessage {
     @XmlJavaTypeAdapter(CDataAdapter.class)
     private String MsgType;
     
+    
+    private Image Image;
+    
     /**
      * 位0x0001被标志时，星标刚收到的消息
      */
     private int FuncFlag;
     
-   @XmlJavaTypeAdapter(CDataAdapter.class)
-    private String MediaId;
 
     public String getToUserName() {
         return ToUserName;
@@ -86,11 +88,12 @@ public class BaseMessage {
         FuncFlag = funcFlag;
     }
 
-	public String getMediaId() {
-		return MediaId;
+	public Image getImage() {
+		return Image;
 	}
 
-	public void setMediaId(String mediaId) {
-		MediaId = mediaId;
+	public void setImage(Image Image) {
+		this.Image = Image;
 	}
+
 }

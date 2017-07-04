@@ -11,6 +11,10 @@ public class Configsure {
 	private static String domin = "http://1b5a938757.51mypc.cn";
 	
 	
+	private static String key = "wx04ffe7bappvworks8ade5a6a098b37";
+	
+	
+	
 
 	public static String getDomin() {
 		return domin;
@@ -42,6 +46,14 @@ public class Configsure {
 
 	public static void setToken(String token) {
 		Configsure.token = token;
+	}
+
+	public static String getKey() {
+		return key;
+	}
+
+	public static void setKey(String key) {
+		Configsure.key = key;
 	}
 	
 	

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.wq.wechat.bean.Image;
 import com.wq.wechat.res.Article;
 import com.wq.wechat.res.NewsMessage;
 import com.wq.wechat.res.TextMessage;
@@ -46,6 +47,8 @@ public class CoreServiceImpl implements CoreService {
 	            String toUserName = requestMap.get("ToUserName");
 	            // 消息类型
 	            String msgType = requestMap.get("MsgType");
+	            String content = requestMap.get("Content");
+	            
 	            // 回复文本消息
 	            TextMessage textMessage = new TextMessage();
 	            textMessage.setToUserName(fromUserName);
@@ -56,9 +59,22 @@ public class CoreServiceImpl implements CoreService {
 	            
 	            // 文本消息
 	            if (msgType.equalsIgnoreCase(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-	            	// 内容
-	                String Content = requestMap.get("Content");
-	                respContent = "额，这个问题有点难度...<a href='http://www.baidu.com/s?wd="+Content+"&rsv_spt=1&issp=1&rsv_bp=0&ie=utf-8&tn=baiduhome_pg&rsv_sug3=8&rsv_sug4=714&rsv_sug1=8&rsv_sug2=0&inputT=4403&rsv_sug=1'>点击这里便明了..</a>";
+	            	if("1".equals(content)){
+	            		
+	            		Image img = new Image();
+	            		 img.setMediaId("0QWud5KY7IbFOAkytuxtZrt8PYwQP17gon5Pazx7Gn2phsZCGo39Zmk-X99r4YCK");
+	            		 NewsMessage a = new NewsMessage();
+	            		 a.setToUserName(toUserName);
+	            		 a.setFromUserName(fromUserName);
+	            		 a.setMsgType("image");
+	            		 a.setImage(img);
+	            		 respMessage = MessageUtil.imgMessageToXml(a);
+	            	}else{
+	            		// 内容
+		                respContent = "额，这个问题有点难度...<a href='http://www.baidu.com/s?wd="+content+"&rsv_spt=1&issp=1&rsv_bp=0&ie=utf-8&tn=baiduhome_pg&rsv_sug3=8&rsv_sug4=714&rsv_sug1=8&rsv_sug2=0&inputT=4403&rsv_sug=1'>点击这里便明了..</a>";
+
+	            	}
+	            	
 	            }
 	            // 图片消息
 	            else if (msgType.equalsIgnoreCase(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
@@ -100,7 +116,8 @@ public class CoreServiceImpl implements CoreService {
 	                    
 	                    String key = "contactUsEvent";
 	                    if (StringUtils.isBlank(respContent) && key.equals(eventKey)) {
-	                    	respContent = wechatMessage.get(key);
+	                       respContent = wechatMessage.get(key);
+	                    	
 	                    }
 	                    if (eventKey.startsWith("imageMessageEvent")) {
 
@@ -127,7 +144,7 @@ public class CoreServiceImpl implements CoreService {
 	                    }
 	                    
 	                    
-	                    if (StringUtils.isBlank(respContent)) respContent = "该功能正在研发中,敬请关注...";
+	                   // if (StringUtils.isBlank(respContent)) respContent = "该功能正在研发中,敬请关注...";
 	                    
 	                } else if (eventType.equalsIgnoreCase(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) {
 	                    System.out.println(JSON.toJSONString(requestMap));

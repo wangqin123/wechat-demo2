@@ -32,5 +32,10 @@
 		<property name="suffix" value=".jsp"></property>
 		<property name="order" value="1"></property>
 	  </bean>
+	  
+	  <bean  class="com.wq.wechat.frameUtil.ApplicationContextHandle"></bean>
+
+
+
 	 
 </beans>

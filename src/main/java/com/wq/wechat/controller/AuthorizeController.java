@@ -2,14 +2,18 @@ package com.wq.wechat.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
+import com.wq.wechat.bean.WeChatProperties;
 import com.wq.wechat.bean.WeixinOauth2Token;
 import com.wq.wechat.bean.WeixinUserInfo;
+import com.wq.wechat.bean.userT;
+import com.wq.wechat.service.IUserService;
 import com.wq.wechat.util.WchatHelper;
 
 
@@ -18,6 +22,9 @@ import com.wq.wechat.util.WchatHelper;
 public class AuthorizeController {
 	
 	
+	
+	@Autowired
+	private IUserService userService;
 	/**
 	 * 微信菜单用户授权控制
 	 * @param unLoginURIKey 未登录跳转页面
@@ -34,6 +41,14 @@ public class AuthorizeController {
 	   WeixinUserInfo  wechatUserinfo =  WchatHelper.getwechatUserInfo(weixinOauth2Token.getAccessToken(),weixinOauth2Token.getOpenId());
 	   
 	   System.out.println(wechatUserinfo.toString());
+	   
+	   userT  user =  userService.getUserById(1);
+	   
+	   System.out.println(user.toString());
+	   
+	   WeChatProperties  e =  WchatHelper.getWeChatProperties();
+	   
+	   System.out.println(JSONObject.toJSON(e));
 		return "/index";
 	}
 	
