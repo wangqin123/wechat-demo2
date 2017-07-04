@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wq.wechat.dao.WechatPropertiesMapper" >
+  <resultMap id="BaseResultMap" type="com.wq.wechat.bean.WeChatProperties" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="accesstoken" property="accesstoken" jdbcType="VARCHAR" />
+    <result column="jsapi_ticket" property="jsapiTicket" jdbcType="VARCHAR" />
+    <result column="api_ticket" property="apiTicket" jdbcType="VARCHAR" />
+    <result column="refreshtime" property="refreshtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from v_wechat_properties
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wq.wechat.bean.WeChatProperties" >
+    insert into v_wechat_properties (id, accesstoken, jsapi_ticket, 
+      api_ticket, refreshtime)
+    values (#{id,jdbcType=BIGINT}, #{accesstoken,jdbcType=VARCHAR}, #{jsapiTicket,jdbcType=VARCHAR}, 
+      #{apiTicket,jdbcType=VARCHAR}, #{refreshtime,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wq.wechat.bean.WeChatProperties" >
+    update v_wechat_properties
+    set accesstoken = #{accesstoken,jdbcType=VARCHAR},
+      jsapi_ticket = #{jsapiTicket,jdbcType=VARCHAR},
+      api_ticket = #{apiTicket,jdbcType=VARCHAR},
+      refreshtime = #{refreshtime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, accesstoken, jsapi_ticket, api_ticket, refreshtime
+    from v_wechat_properties
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, accesstoken, jsapi_ticket, api_ticket, refreshtime
+    from v_wechat_properties
+  </select>
+</mapper>
