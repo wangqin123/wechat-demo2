@@ -37,7 +37,7 @@ public class MessageController {
         String echostr = request.getParameter("echostr");
         String reSignature = null;
         try {
-            String[] str = { Configsure.getToken(), timestamp, nonce };
+            String[] str = { Configsure.newInstance().getToken(), timestamp, nonce };
             Arrays.sort(str);
             String bigStr = str[0] + str[1] + str[2];
             reSignature = new SHA1().getDigestOfString(bigStr.getBytes()).toLowerCase();

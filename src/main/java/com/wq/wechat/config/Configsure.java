@@ -1,60 +1,97 @@
 package com.wq.wechat.config;
 
+import com.wq.wechat.holder.SpringContextHolder;
+
 public class Configsure {
 	
-	private static String appid="wx322330a266a36785";
+	private  String appid;
 	
-	private static String appsecret="bbd2ea7859c2dfadf82f162a53d01516";
+	private  String appsecret;
 	
-	private static String token="wqwqwqwqwqwq";
+	private  String token;
 	
-	private static String domin = "http://1b5a938757.51mypc.cn";
-	
-	
-	private static String key = "wx04ffe7bappvworks8ade5a6a098b37";
+	private  String domin;
 	
 	
+	private  String key;
 	
-
-	public static String getDomin() {
-		return domin;
-	}
-
-	public static void setDomin(String domin) {
-		Configsure.domin = domin;
-	}
-
-	public static String getAppid() {
+	
+	public String getAppid() {
 		return appid;
 	}
 
-	public static void setAppid(String appid) {
-		Configsure.appid = appid;
+
+	public void setAppid(String appid) {
+		this.appid = appid;
 	}
 
-	public static String getAppsecret() {
+
+	public String getAppsecret() {
 		return appsecret;
 	}
 
-	public static void setAppsecret(String appsecret) {
-		Configsure.appsecret = appsecret;
+
+	public void setAppsecret(String appsecret) {
+		this.appsecret = appsecret;
 	}
 
-	public static String getToken() {
+
+	public String getToken() {
 		return token;
 	}
 
-	public static void setToken(String token) {
-		Configsure.token = token;
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
-	public static String getKey() {
+
+	public String getDomin() {
+		return domin;
+	}
+
+
+	public void setDomin(String domin) {
+		this.domin = domin;
+	}
+
+
+	public String getKey() {
 		return key;
 	}
 
-	public static void setKey(String key) {
-		Configsure.key = key;
+
+	public void setKey(String key) {
+		this.key = key;
 	}
+
+
+	public Configsure(String appid, String appsecret, String token, String domin, String key) {
+		super();
+		this.appid = appid;
+		this.appsecret = appsecret;
+		this.token = token;
+		this.domin = domin;
+		this.key = key;
+	}
+
+
+	public Configsure() {}
+
+	/**
+	 * 获取实例
+	 * @return
+	 */
+	public static Configsure newInstance() {
+		return SpringContextHolder.getBean(Configsure.class);
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

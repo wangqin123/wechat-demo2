@@ -30,7 +30,11 @@ import java.net.URLEncoder;
 import java.util.Map;
 
 /**
- * Created by Mifeng.He(bee) on 2015/11/17.
+ * 
+ * 
+ * @author wangqin
+ *
+ * @date 2017年7月12日 下午2:36:20
  */
 @Service
 @SuppressWarnings("unchecked")

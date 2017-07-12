@@ -26,11 +26,13 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.wq.wechat.bean.Page;
 import com.wq.wechat.bean.WeChatProperties;
 import com.wq.wechat.bean.WeixinOauth2Token;
 import com.wq.wechat.bean.WeixinUserInfo;
 import com.wq.wechat.config.Configsure;
-import com.wq.wechat.frameUtil.ApplicationContextHandle;
+import com.wq.wechat.holder.SpringContextHolder;
+import com.wq.wechat.service.QRCodeService;
 import com.wq.wechat.service.WeChatPropertiesService;
 
 public class WchatHelper {
@@ -45,7 +47,9 @@ public class WchatHelper {
 	
 	private static final String JSAPI_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi";
 
-	private static final WeChatPropertiesService weChatPropertiesService = (WeChatPropertiesService)ApplicationContextHandle.getBean("weChatPropertiesService"); 
+	private static final WeChatPropertiesService weChatPropertiesService = (WeChatPropertiesService)SpringContextHolder.getBean("weChatPropertiesService");
+	
+
 	 
 	/**
 	 * 获取getAccEssToken
@@ -57,7 +61,7 @@ public class WchatHelper {
 		String url;
 		String access_token = null;
 		JSONObject jsonObj;//微信返回信息Json对象
-		url = GET_ACCESS_TOKEN.replace("APPID", Configsure.getAppid()).replace("APPSECRET", Configsure.getAppsecret());
+		url = GET_ACCESS_TOKEN.replace("APPID", Configsure.newInstance().getAppid()).replace("APPSECRET", Configsure.newInstance().getAppsecret());
 		try {
 			
 			jsonStr = get(url);
@@ -92,7 +96,7 @@ public class WchatHelper {
 		String jsonStr;//微信返回信息
 		String url;
 		JSONObject jsonObj;//微信返回信息Json对象
-		url = ACCESS_TOKEN_URL.replace("APPID", Configsure.getAppid()).replace("SECRET", Configsure.getAppsecret()).replace("CODE", code);
+		url = ACCESS_TOKEN_URL.replace("APPID", Configsure.newInstance().getAppid()).replace("SECRET", Configsure.newInstance().getAppsecret()).replace("CODE", code);
 		try {
 			wat = new WeixinOauth2Token();
 			
@@ -128,7 +132,7 @@ public class WchatHelper {
 		String jsonStr;//微信返回信息
 		String url;
 		JSONObject jsonObj;//微信返回信息Json对象
-		url = REF_TOKEN.replace("APPID", Configsure.getAppid()).replace("REFRESH_TOKEN ", refreshToken);
+		url = REF_TOKEN.replace("APPID", Configsure.newInstance().getAppid()).replace("REFRESH_TOKEN ", refreshToken);
 		try {
 			wat = new WeixinOauth2Token();
 			
@@ -322,13 +326,13 @@ public class WchatHelper {
 	
 	
 	/**
-	 * 获取微信接口参数
+	 * 获取微信接口参数 -7200后过期  重新获取
 	 * @return
 	 */
 	public static WeChatProperties getWeChatProperties() {
 		WeChatProperties properties = new WeChatProperties();
 		properties = weChatPropertiesService.selectProperties().get(0);
-		Long now  = Long.parseLong(String.valueOf(System.currentTimeMillis()).substring(0, 10))-Long.parseLong(properties.getRefreshtime());
+	   Long now  = Long.parseLong(String.valueOf(System.currentTimeMillis()).substring(0, 10))-Long.parseLong(properties.getRefreshtime());
 		if(now > 100 ){
 			String accessToken = getAccessToken();
 			String jsapi_ticket = fetchConfig(accessToken);
@@ -358,7 +362,7 @@ public class WchatHelper {
 				sb.append(key + "=" + value + "&");
 			}
 		}
-		sb.append("key=" + Configsure.getKey());
+		sb.append("key=" + Configsure.newInstance().getKey());
 		
 		String sign = "";
 		System.out.println("签名前:" + params);
@@ -371,6 +375,18 @@ public class WchatHelper {
 		return sign;
 	}
 	
+	/**
+	 * 生成二维码
+	 */
+	public static void generateQrocde() {
+		QRCodeService qrCodeService = SpringContextHolder.getBean(QRCodeService.class);
+		Page<Object> temporary = qrCodeService.temporary(String.valueOf(new Date().getTime()), 2592000);
+		String qrcodeTicket = (String) temporary.getMap().get("ticket");
+		if (StringUtils.isBlank(qrcodeTicket)) return;
+		//LOGGER.debug("# 扫描二维码请关注:" + WechatConfig.newInstance().getNetworkPath() + "wap/qrcode");
+		qrcodeTicket = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=" + qrcodeTicket;
+		LOGGER.debug("# 创建临时二维码:" + qrcodeTicket);
+	}
 	
 	
 

@@ -1,8 +1,9 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?> 
 
-<web-app>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+	xmlns:web="http://xmlns.jcp.org/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
   <!-- 加载Spring配置文件 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -31,4 +32,31 @@
 		<servlet-name>spring3mvc</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	<!-- sitemesh -->
+	 <filter>
+     <filter-name>sitemesh</filter-name>
+      <filter-class>org.sitemesh.config.ConfigurableSiteMeshFilter</filter-class>
+    </filter>
+   <filter-mapping>
+     <filter-name>sitemesh</filter-name>
+     <url-pattern>/*</url-pattern>
+   </filter-mapping>
+   
+   
+  <!--  乱码过滤器 -->
+    <filter>
+     <filter-name>encoding</filter-name>
+      <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+      <init-param>
+      <param-name>encoding</param-name>
+      <param-value>utf8</param-value>
+      </init-param>
+    </filter>
+   <filter-mapping>
+     <filter-name>encoding</filter-name>
+     <url-pattern>*</url-pattern>
+   </filter-mapping>
+   
+    
+    
 </web-app>

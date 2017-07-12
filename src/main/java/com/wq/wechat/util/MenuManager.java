@@ -35,7 +35,7 @@ public class MenuManager{
 		
 		// 调用接口获取access_token
 		JSONObject jsonObj;//微信返回信息Json对象
-		String url ="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+Configsure.getAppid()+"&secret="+Configsure.getAppsecret();
+		String url ="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx322330a266a36785&secret=bbd2ea7859c2dfadf82f162a53d01516";
 		
 		String jsonStr =get(url);
 		
@@ -46,9 +46,12 @@ public class MenuManager{
 			access_token = jsonObj.getString("access_token");
 		}
 		
-		// 菜单删除
+		
 			// 调用接口创建菜单
 			result = MenuUtil.createMenu(getMenu(), access_token);
+			
+			WchatHelper.generateQrocde(); 
+			
 			shu++;
 			// 判断菜单创建结果
 			if (result) {

@@ -271,6 +271,13 @@
             <artifactId>mysql-connector-java</artifactId>  
             <version>5.1.30</version>  
         </dependency>  
+        
+        <!-- decorator -->
+		<dependency>
+			<groupId>org.sitemesh</groupId>
+			<artifactId>sitemesh</artifactId>
+			<version>${sitemesh.version}</version>
+		</dependency>
 		
 
 		
@@ -280,6 +287,24 @@
     <finalName>wechat-demo2</finalName>
   </build>
   
+  
+  <resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+					<include>**/*.json</include>
+				</includes>
+			</resource>
+		</resources>
+		
   	
 		
 </project>

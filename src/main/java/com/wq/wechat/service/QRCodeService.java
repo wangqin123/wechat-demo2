@@ -3,11 +3,14 @@ package com.wq.wechat.service;
 import com.wq.wechat.bean.Page;
 
 /**
- * Created by Mifeng.He(bee) on 2015/11/17.
- * 二维码生成
+ *  二维码生成
  * 用户扫描带场景值二维码时，可能推送以下两种事件：
  * 如果用户已经关注公众号，在用户扫描后会自动进入会话，微信也会将带场景值扫描事件推送给开发者。
- * 获取带参数的二维码的过程包括两步，首先创建二维码ticket，然后凭借ticket到指定URL换取二维码。
+ * 获取带参数的二维码的过程包括两步，首先创建二维码ticket，然后凭借ticket到指定URL换取二维码
+ * 
+ * @author wangqin
+ *
+ * @date 2017年7月12日 下午2:36:40
  */
 public interface QRCodeService {
 
